@@ -342,6 +342,17 @@ input[type=text],input[type=time],input[type=password],select{width:100%;min-hei
 .inst{border-color:var(--th)}
 .week{grid-template-columns:repeat(auto-fit,minmax(46px,1fr));gap:5px}
 .wd{padding-inline:0}
+textarea{width:100%;min-width:0;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:10px 12px;font:inherit;color:inherit;resize:vertical;line-height:1.6}
+.ibtn{position:relative;width:40px;height:40px}
+.badge{position:absolute;top:-5px;inset-inline-start:-5px;min-width:19px;height:19px;padding:0 5px;border-radius:10px;background:#e11d48;color:#fff;font-style:normal;font-size:11.5px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--surface)}
+.notice{display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;box-shadow:var(--sh)}
+.notice.imp,.nitem.imp{border-color:var(--pr);background:linear-gradient(135deg,var(--pr-soft),var(--surface))}
+.notice p,.nitem p{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.75}
+.nhead{display:flex;align-items:center;gap:8px;color:var(--th)}
+.nhead small{margin-inline-start:auto;color:var(--muted)}
+.nhead b{color:var(--ink)}
+.nitem{display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+.qadm{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
 
 .hb{display:flex;gap:8px;flex:none;flex-wrap:wrap;justify-content:flex-end}
 
@@ -388,6 +399,7 @@ const LOGO='<svg viewBox="0 0 24 24" width="40" height="40" '+ST+'><path d="M9 3
 const ICON_CAL='<svg viewBox="0 0 24 24" width="22" height="22" '+ST+'><path d="M7 3v3M17 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg>';
 const ICON_DOC='<svg viewBox="0 0 24 24" width="22" height="22" '+ST+'><path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/></svg>';
 
+const ICON_BELL='<svg viewBox="0 0 24 24" width="20" height="20" '+ST+'><path d="M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>';
 const ICON_SUN='<svg viewBox="0 0 24 24" width="20" height="20" '+ST+'><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
 const ICON_MOON='<svg viewBox="0 0 24 24" width="20" height="20" '+ST+'><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>';
 const ICON_STAR='<svg viewBox="0 0 24 24" width="22" height="22" '+ST+'><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9 6.8 19.7l1-5.9L3.5 9.7l5.9-.8z"/></svg>';
@@ -408,7 +420,7 @@ const KIND={theory:'نظري',practical:'عملي'};
 const TYPES={pdf:'application/pdf',png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',webp:'image/webp',gif:'image/gif',txt:'text/plain',md:'text/markdown',csv:'text/csv'};
 const EXT={'application/pdf':'pdf','image/png':'png','image/jpeg':'jpg','image/webp':'webp','image/gif':'gif','text/plain':'txt','text/markdown':'md','text/csv':'csv'};
 
-const state={"subjects":[{"id":"med-term","ar":"المصطلحات الطبية","en":"Medical Terminology","practical":false},{"id":"lab-inst","ar":"الأجهزة المختبرية 1","en":"Lab. Instruments 1","practical":true},{"id":"med-ethics","ar":"الأخلاقيات الطبية","en":"Medical Ethics","practical":false},{"id":"gen-chem","ar":"الكيمياء العامة 1","en":"General Chemistry 1","practical":true},{"id":"human-bio","ar":"علم الأحياء البشري 1","en":"Human Biology 1","practical":true},{"id":"human-rights","ar":"حقوق الإنسان","en":"Human Rights","practical":false},{"id":"arabic","ar":"اللغة العربية 1","en":"Arabic Language 1","practical":false}],"sessions":[{"id":"s01","day":"sat","start":"08:30","end":"10:00","sub":"med-term","kind":"theory","groups":["B"],"lecturer":"م.م. علاء احمد فزع","hall":"B-002"},{"id":"s02","day":"sat","start":"10:00","end":"11:30","sub":"lab-inst","kind":"theory","groups":["A"],"lecturer":"م.م. عبدالقادر اسعد","hall":"B-002"},{"id":"s03","day":"sat","start":"13:00","end":"14:30","sub":"med-ethics","kind":"theory","groups":["A","B"],"lecturer":"ا.م.د. رائد عبيد صالح","hall":"B-002"},{"id":"s04","day":"sun","start":"08:30","end":"10:00","sub":"lab-inst","kind":"theory","groups":["B"],"lecturer":"م.م. عبدالقادر اسعد","hall":"B-002"},{"id":"s05","day":"sun","start":"10:00","end":"11:30","sub":"gen-chem","kind":"theory","groups":["B"],"lecturer":"ا.م.د. سمير احمد عواد","hall":"B-002"},{"id":"s06","day":"sun","start":"11:30","end":"13:00","sub":"human-bio","kind":"theory","groups":["A"],"lecturer":"م.م. علي مهدي","hall":"B-002"},{"id":"s07","day":"tue","start":"08:30","end":"10:00","sub":"gen-chem","kind":"theory","groups":["A"],"lecturer":"ا.م.د. سمير احمد عواد","hall":"B-002"},{"id":"s08","day":"tue","start":"10:00","end":"11:30","sub":"human-bio","kind":"theory","groups":["B"],"lecturer":"م.م. علي مهدي","hall":"B-002"},{"id":"s09","day":"tue","start":"11:30","end":"13:00","sub":"med-term","kind":"theory","groups":["A"],"lecturer":"م.م. علاء احمد فزع","hall":"B-002"},{"id":"s10","day":"wed","start":"10:00","end":"11:30","sub":"human-rights","kind":"theory","groups":["A","B"],"lecturer":"ا.م.د. حامد قاسم","hall":"أونلاين"},{"id":"s11","day":"wed","start":"11:30","end":"13:00","sub":"arabic","kind":"theory","groups":["A","B"],"lecturer":"م.د. براء فاعور جمعة","hall":"أونلاين"},{"id":"s12","day":"sat","start":"08:30","end":"10:00","sub":"gen-chem","kind":"practical","groups":["A1"],"lecturer":"م.م. ضحى ظافر مهدي","hall":"M-304"},{"id":"s13","day":"sat","start":"10:00","end":"11:30","sub":"gen-chem","kind":"practical","groups":["B1"],"lecturer":"م.م. ضحى ظافر مهدي","hall":"M-304"},{"id":"s14","day":"sat","start":"11:30","end":"13:00","sub":"gen-chem","kind":"practical","groups":["A4"],"lecturer":"م.م. ضحى ظافر مهدي","hall":"M-304"},{"id":"s15","day":"sat","start":"08:30","end":"10:00","sub":"human-bio","kind":"practical","groups":["A2"],"lecturer":"م.م. حنين فاضل","hall":"M-111"},{"id":"s16","day":"sat","start":"10:00","end":"11:30","sub":"human-bio","kind":"practical","groups":["B2"],"lecturer":"م.م. حنين فاضل","hall":"M-111"},{"id":"s17","day":"sat","start":"11:30","end":"13:00","sub":"human-bio","kind":"practical","groups":["A3"],"lecturer":"م.م. حنين فاضل","hall":"M-111"},{"id":"s18","day":"sat","start":"08:30","end":"10:00","sub":"lab-inst","kind":"practical","groups":["A3"],"lecturer":"م.م. عبدالقادر اسعد","hall":"M-112"},{"id":"s19","day":"sat","start":"11:30","end":"13:00","sub":"lab-inst","kind":"practical","groups":["A2"],"lecturer":"م.م. عبدالقادر اسعد","hall":"M-112"},{"id":"s20","day":"sun","start":"08:30","end":"10:00","sub":"gen-chem","kind":"practical","groups":["A3"],"lecturer":"م.م. ضحى ظافر مهدي","hall":"M-304"},{"id":"s21","day":"sun","start":"10:00","end":"11:30","sub":"gen-chem","kind":"practical","groups":["A2"],"lecturer":"م.م. ضحى ظافر مهدي","hall":"M-304"},{"id":"s22","day":"sun","start":"11:30","end":"13:00","sub":"gen-chem","kind":"practical","groups":["B2"],"lecturer":"م.م. ضحى ظافر مهدي","hall":"M-304"},{"id":"s23","day":"sun","start":"08:30","end":"10:00","sub":"human-bio","kind":"practical","groups":["A4"],"lecturer":"م.م. حنين فاضل","hall":"M-111"},{"id":"s24","day":"sun","start":"10:00","end":"11:30","sub":"human-bio","kind":"practical","groups":["A1"],"lecturer":"م.م. حنين فاضل","hall":"M-111"},{"id":"s25","day":"sun","start":"11:30","end":"13:00","sub":"human-bio","kind":"practical","groups":["B1"],"lecturer":"م.م. حنين فاضل","hall":"M-111"},{"id":"s26","day":"sun","start":"10:00","end":"11:30","sub":"lab-inst","kind":"practical","groups":["A4"],"lecturer":"م.م. عبدالقادر اسعد","hall":"M-112"},{"id":"s27","day":"sun","start":"11:30","end":"13:00","sub":"lab-inst","kind":"practical","groups":["B3"],"lecturer":"م.م. عبدالقادر اسعد","hall":"M-112"},{"id":"s28","day":"sun","start":"13:00","end":"14:30","sub":"lab-inst","kind":"practical","groups":["B4"],"lecturer":"م.م. عبدالقادر اسعد","hall":"M-112"},{"id":"s29","day":"tue","start":"08:30","end":"10:00","sub":"gen-chem","kind":"practical","groups":["B3"],"lecturer":"م.م. ضحى ظافر مهدي","hall":"M-304"},{"id":"s30","day":"tue","start":"11:30","end":"13:00","sub":"gen-chem","kind":"practical","groups":["B4"],"lecturer":"م.م. ضحى ظافر مهدي","hall":"M-304"},{"id":"s31","day":"tue","start":"08:30","end":"10:00","sub":"human-bio","kind":"practical","groups":["B4"],"lecturer":"م.م. حنين فاضل","hall":"M-111"},{"id":"s32","day":"tue","start":"11:30","end":"13:00","sub":"human-bio","kind":"practical","groups":["B3"],"lecturer":"م.م. حنين فاضل","hall":"M-111"},{"id":"s33","day":"tue","start":"08:30","end":"10:00","sub":"lab-inst","kind":"practical","groups":["B1"],"lecturer":"م.م. عبدالقادر اسعد","hall":"M-112"},{"id":"s34","day":"tue","start":"10:00","end":"11:30","sub":"lab-inst","kind":"practical","groups":["A1"],"lecturer":"م.م. عبدالقادر اسعد","hall":"M-112"},{"id":"s35","day":"tue","start":"11:30","end":"13:00","sub":"lab-inst","kind":"practical","groups":["B2"],"lecturer":"م.م. عبدالقادر اسعد","hall":"M-112"}],"files":[]};
+const state={"subjects":[{"id":"med-term","ar":"المصطلحات الطبية","en":"Medical Terminology","practical":false},{"id":"lab-inst","ar":"الأجهزة المختبرية 1","en":"Lab. Instruments 1","practical":true},{"id":"med-ethics","ar":"الأخلاقيات الطبية","en":"Medical Ethics","practical":false},{"id":"gen-chem","ar":"الكيمياء العامة 1","en":"General Chemistry 1","practical":true},{"id":"human-bio","ar":"علم الأحياء البشري 1","en":"Human Biology 1","practical":true},{"id":"human-rights","ar":"حقوق الإنسان","en":"Human Rights","practical":false},{"id":"arabic","ar":"اللغة العربية 1","en":"Arabic Language 1","practical":false}],"sessions":[{"id":"s01","day":"sat","start":"08:30","end":"10:00","sub":"med-term","kind":"theory","groups":["B"],"lecturer":"م.م. علاء احمد فزع","hall":"B-002"},{"id":"s02","day":"sat","start":"10:00","end":"11:30","sub":"lab-inst","kind":"theory","groups":["A"],"lecturer":"م.م. عبدالقادر اسعد","hall":"B-002"},{"id":"s03","day":"sat","start":"13:00","end":"14:30","sub":"med-ethics","kind":"theory","groups":["A","B"],"lecturer":"ا.م.د. رائد عبيد صالح","hall":"B-002"},{"id":"s04","day":"sun","start":"08:30","end":"10:00","sub":"lab-inst","kind":"theory","groups":["B"],"lecturer":"م.م. عبدالقادر اسعد","hall":"B-002"},{"id":"s05","day":"sun","start":"10:00","end":"11:30","sub":"gen-chem","kind":"theory","groups":["B"],"lecturer":"ا.م.د. سمير احمد عواد","hall":"B-002"},{"id":"s06","day":"sun","start":"11:30","end":"13:00","sub":"human-bio","kind":"theory","groups":["A"],"lecturer":"م.م. علي مهدي","hall":"B-002"},{"id":"s07","day":"tue","start":"08:30","end":"10:00","sub":"gen-chem","kind":"theory","groups":["A"],"lecturer":"ا.م.د. سمير احمد عواد","hall":"B-002"},{"id":"s08","day":"tue","start":"10:00","end":"11:30","sub":"human-bio","kind":"theory","groups":["B"],"lecturer":"م.م. علي مهدي","hall":"B-002"},{"id":"s09","day":"tue","start":"11:30","end":"13:00","sub":"med-term","kind":"theory","groups":["A"],"lecturer":"م.م. علاء احمد فزع","hall":"B-002"},{"id":"s10","day":"wed","start":"10:00","end":"11:30","sub":"human-rights","kind":"theory","groups":["A","B"],"lecturer":"ا.م.د. حامد قاسم","hall":"أونلاين"},{"id":"s11","day":"wed","start":"11:30","end":"13:00","sub":"arabic","kind":"theory","groups":["A","B"],"lecturer":"م.د. براء فاعور جمعة","hall":"أونلاين"},{"id":"s12","day":"sat","start":"08:30","end":"10:00","sub":"gen-chem","kind":"practical","groups":["A1"],"lecturer":"م.م. ضحى ظافر مهدي","hall":"M-304"},{"id":"s13","day":"sat","start":"10:00","end":"11:30","sub":"gen-chem","kind":"practical","groups":["B1"],"lecturer":"م.م. ضحى ظافر مهدي","hall":"M-304"},{"id":"s14","day":"sat","start":"11:30","end":"13:00","sub":"gen-chem","kind":"practical","groups":["A4"],"lecturer":"م.م. ضحى ظافر مهدي","hall":"M-304"},{"id":"s15","day":"sat","start":"08:30","end":"10:00","sub":"human-bio","kind":"practical","groups":["A2"],"lecturer":"م.م. حنين فاضل","hall":"M-111"},{"id":"s16","day":"sat","start":"10:00","end":"11:30","sub":"human-bio","kind":"practical","groups":["B2"],"lecturer":"م.م. حنين فاضل","hall":"M-111"},{"id":"s17","day":"sat","start":"11:30","end":"13:00","sub":"human-bio","kind":"practical","groups":["A3"],"lecturer":"م.م. حنين فاضل","hall":"M-111"},{"id":"s18","day":"sat","start":"08:30","end":"10:00","sub":"lab-inst","kind":"practical","groups":["A3"],"lecturer":"م.م. عبدالقادر اسعد","hall":"M-112"},{"id":"s19","day":"sat","start":"11:30","end":"13:00","sub":"lab-inst","kind":"practical","groups":["A2"],"lecturer":"م.م. عبدالقادر اسعد","hall":"M-112"},{"id":"s20","day":"sun","start":"08:30","end":"10:00","sub":"gen-chem","kind":"practical","groups":["A3"],"lecturer":"م.م. ضحى ظافر مهدي","hall":"M-304"},{"id":"s21","day":"sun","start":"10:00","end":"11:30","sub":"gen-chem","kind":"practical","groups":["A2"],"lecturer":"م.م. ضحى ظافر مهدي","hall":"M-304"},{"id":"s22","day":"sun","start":"11:30","end":"13:00","sub":"gen-chem","kind":"practical","groups":["B2"],"lecturer":"م.م. ضحى ظافر مهدي","hall":"M-304"},{"id":"s23","day":"sun","start":"08:30","end":"10:00","sub":"human-bio","kind":"practical","groups":["A4"],"lecturer":"م.م. حنين فاضل","hall":"M-111"},{"id":"s24","day":"sun","start":"10:00","end":"11:30","sub":"human-bio","kind":"practical","groups":["A1"],"lecturer":"م.م. حنين فاضل","hall":"M-111"},{"id":"s25","day":"sun","start":"11:30","end":"13:00","sub":"human-bio","kind":"practical","groups":["B1"],"lecturer":"م.م. حنين فاضل","hall":"M-111"},{"id":"s26","day":"sun","start":"10:00","end":"11:30","sub":"lab-inst","kind":"practical","groups":["A4"],"lecturer":"م.م. عبدالقادر اسعد","hall":"M-112"},{"id":"s27","day":"sun","start":"11:30","end":"13:00","sub":"lab-inst","kind":"practical","groups":["B3"],"lecturer":"م.م. عبدالقادر اسعد","hall":"M-112"},{"id":"s28","day":"sun","start":"13:00","end":"14:30","sub":"lab-inst","kind":"practical","groups":["B4"],"lecturer":"م.م. عبدالقادر اسعد","hall":"M-112"},{"id":"s29","day":"tue","start":"08:30","end":"10:00","sub":"gen-chem","kind":"practical","groups":["B3"],"lecturer":"م.م. ضحى ظافر مهدي","hall":"M-304"},{"id":"s30","day":"tue","start":"11:30","end":"13:00","sub":"gen-chem","kind":"practical","groups":["B4"],"lecturer":"م.م. ضحى ظافر مهدي","hall":"M-304"},{"id":"s31","day":"tue","start":"08:30","end":"10:00","sub":"human-bio","kind":"practical","groups":["B4"],"lecturer":"م.م. حنين فاضل","hall":"M-111"},{"id":"s32","day":"tue","start":"11:30","end":"13:00","sub":"human-bio","kind":"practical","groups":["B3"],"lecturer":"م.م. حنين فاضل","hall":"M-111"},{"id":"s33","day":"tue","start":"08:30","end":"10:00","sub":"lab-inst","kind":"practical","groups":["B1"],"lecturer":"م.م. عبدالقادر اسعد","hall":"M-112"},{"id":"s34","day":"tue","start":"10:00","end":"11:30","sub":"lab-inst","kind":"practical","groups":["A1"],"lecturer":"م.م. عبدالقادر اسعد","hall":"M-112"},{"id":"s35","day":"tue","start":"11:30","end":"13:00","sub":"lab-inst","kind":"practical","groups":["B2"],"lecturer":"م.م. عبدالقادر اسعد","hall":"M-112"}],"files":[],"quotes":[],"notices":[]};
 let initial=JSON.stringify(state);
 const root=$('#root');
 try{const th0=localStorage.getItem('sq_theme');if(th0) DOC.documentElement.setAttribute('data-theme',th0);}catch(e){}
@@ -477,7 +489,7 @@ function render(){
   window.scrollTo(0,y);
 }
 function header(){
-  const btns=[themeBtn()];
+  const btns=[bellBtn(),themeBtn()];
   if(ui.isAdmin){
     btns.push(h('button',{class:'btn small adm',type:'button',onclick:()=>{
       ui.admin=!ui.admin;
@@ -508,7 +520,7 @@ function draftBanner(){
   return h('div',{class:'banner'},h('div',null,'لقينا تعديلات غير منشورة من المرة الماضية.'),
     h('div',{class:'row'},
       h('button',{class:'btn small primary',type:'button',onclick:()=>{
-        try{const d=JSON.parse(ui.draft);state.subjects=d.subjects;state.sessions=d.sessions;state.files=d.files;}catch(e){}
+        try{const d=JSON.parse(ui.draft);state.subjects=d.subjects;state.sessions=d.sessions;state.files=d.files;state.quotes=d.quotes||[];state.notices=d.notices||[];}catch(e){}
         ui.draft=null;ui.dirty=JSON.stringify(state)!==initial;render();
       }},'استرجاعها'),
       h('button',{class:'btn small',type:'button',onclick:()=>{ui.draft=null;ssSet('draft',null);render();}},'تجاهلها')));
@@ -520,7 +532,7 @@ function afterChange(msg){
 }
 function discard(){
   const s0=JSON.parse(initial);
-  state.subjects=s0.subjects;state.sessions=s0.sessions;state.files=s0.files;
+  state.subjects=s0.subjects;state.sessions=s0.sessions;state.files=s0.files;state.quotes=s0.quotes||[];state.notices=s0.notices||[];
   ui.dirty=false;render();
 }
 
@@ -585,15 +597,80 @@ function installHelp(){
   ]);
 }
 
+/* ---------- التبليغات والرسائل المضافة ---------- */
+function seenIds(){try{return JSON.parse(lsGet('seen')||'[]');}catch(e){return [];}}
+function markSeen(){lsSet('seen',JSON.stringify(state.notices.map(n=>n.id)));}
+function unseenCount(){const sn=seenIds();return state.notices.filter(n=>sn.indexOf(n.id)<0).length;}
+function sortedNotices(){return state.notices.slice().sort((a,b)=>String(b.at).localeCompare(String(a.at)));}
+function bellBtn(){
+  const n=unseenCount();
+  return h('button',{class:'ibtn bell',type:'button','aria-label':'التبليغات',onclick:openNotices},svgEl(ICON_BELL),n?h('i',{class:'badge'},String(n)):null);
+}
+function noticeHome(){
+  const list=sortedNotices();
+  if(!list.length){
+    return ui.admin?h('section',{class:'notice'},h('div',{class:'nhead'},svgEl(ICON_BELL),h('b',null,'ماكو تبليغات للطلاب')),
+      h('div',{class:'row'},h('button',{class:'btn small primary',type:'button',onclick:openNotices},'+ إضافة تبليغ'))):null;
+  }
+  const n=list[0];
+  return h('section',{class:'notice'+(n.imp?' imp':'')},
+    h('div',{class:'nhead'},svgEl(ICON_BELL),h('b',null,n.imp?'تبليغ مهم':'تبليغ'),h('small',null,dateTxt(n.at))),
+    h('p',null,n.t),
+    h('div',{class:'row'},h('button',{class:'btn small',type:'button',onclick:openNotices},'كل التبليغات ('+list.length+')')));
+}
+function openNotices(){
+  markSeen();
+  let txt='',imp=false,arm='';
+  openSheet('التبليغات',api=>{
+    const list=sortedNotices();
+    return [
+      ui.admin?h('div',{class:'srow'},
+        h('textarea',{id:'nt',rows:3,placeholder:'اكتب التبليغ للطلاب',value:txt,oninput:e=>{txt=e.target.value;}}),
+        h('label',{class:'chk'},h('input',{type:'checkbox',checked:imp,onchange:e=>{imp=e.target.checked;}}),'تبليغ مهم'),
+        h('button',{class:'btn primary',type:'button',onclick:()=>{
+          const v=txt.trim();if(!v) return;
+          state.notices.push({id:uid(),t:v,at:new Date().toISOString(),imp:imp});
+          txt='';imp=false;markSeen();api.render();
+        }},'+ إضافة التبليغ'),
+        h('p',{class:'note'},'بعد الإضافة اضغط «نشر للطلاب» حتى يوصلهم التبليغ.')):null,
+      list.length?h('div',{class:'list'},list.map(n=>h('article',{class:'nitem'+(n.imp?' imp':'')},
+        h('div',{class:'nhead'},n.imp?h('span',{class:'pill now'},'مهم'):null,h('small',null,dateTxt(n.at))),
+        h('p',null,n.t),
+        ui.admin?h('div',{class:'row'},h('button',{class:'btn small danger',type:'button',onclick:()=>{
+          if(arm!==n.id){arm=n.id;api.render();return;}
+          state.notices=state.notices.filter(x=>x.id!==n.id);arm='';api.render();
+        }},arm===n.id?'تأكيد الحذف':'حذف')):null))):h('div',{class:'empty'},h('p',null,'ماكو تبليغات حالياً.'))
+    ];
+  },()=>afterChange());
+}
+function editQuotes(){
+  let txt='',arm='';
+  openSheet('رسائلك التحفيزية',api=>[
+    h('div',{class:'srow'},
+      h('textarea',{id:'qt',rows:3,placeholder:'اكتب رسالة تحفيزية للطلاب',value:txt,oninput:e=>{txt=e.target.value;}}),
+      h('button',{class:'btn primary',type:'button',onclick:()=>{
+        const v=txt.trim();if(!v) return;
+        state.quotes.push({id:uid(),t:v});txt='';api.render();
+      }},'+ إضافة الرسالة')),
+    state.quotes.length?h('div',{class:'list'},state.quotes.map(q=>h('div',{class:'qitem qadm'},h('div',null,q.t),
+      h('button',{class:'btn small danger',type:'button',onclick:()=>{
+        if(arm!==q.id){arm=q.id;api.render();return;}
+        state.quotes=state.quotes.filter(x=>x.id!==q.id);arm='';api.render();
+      }},arm===q.id?'تأكيد الحذف':'حذف')))):h('p',{class:'hint'},'ما أضفت رسائل بعد. الرسائل الأساسية تبقى موجودة.'),
+    h('p',{class:'note'},'بعد الإضافة اضغط «نشر للطلاب» حتى تظهر عندهم.')
+  ],()=>afterChange());
+}
+
 /* ---------- رسائل تحفيزية واسم المطوّر ---------- */
 const QUOTES=["كل محاضرة تحضرها خطوة أقرب لحلمك.", "التعب اليوم، والفرحة يوم النجاح.", "انت أقوى من أي امتحان.", "ابدأ من حيث انت، وبقدر ما تكدر، والباقي يجي.", "النجاح مو صدفة، هو عادة يومية.", "ساعة مراجعة اليوم توفر عليك ليلة سهر قبل الامتحان.", "فني المختبر الماهر يبدأ من هنا.", "لا تقارن نفسك بغيرك، قارن نفسك بأمس.", "الي يزرع بالدراسة يحصد بالنجاح.", "اصبر، كل شي صعب يصير سهل بالتكرار.", "أهلك يدعون لك، وانت أكبر من كل ظن.", "لا تأجل مذاكرة اليوم لباجر.", "تركيز عشرين دقيقة أحسن من ساعتين مشتت.", "كل نتيجة تحليل صحيحة وراها فني عرف شغله.", "الغلط مو نهاية، الغلط درس.", "احلم كبير، واشتغل بصمت، وخل النجاح يحجي.", "انت مو لحالك، كلنا نمشي نفس الطريق.", "اشرب مي، ارتاح شوية، ورجع بقوة.", "المرحلة الأولى هي الأساس، وانت تبني أساس متين.", "من جدّ وجد، ومن زرع حصد.", "ماكو مستحيل مع الإصرار.", "كل يوم تحضر بي، هو يوم ربحته.", "الامتحان صعب، بس انت أصعب منه.", "نظّم وقتك، ينظّم لك المستقبل.", "ابتسم، انت تدرس تخصص يخدم الناس.", "خطوة صغيرة كل يوم تسوي فرق كبير بالنهاية.", "لا تستسلم، أقرب نقطة للنجاح هي الي قبل الاستسلام بخطوة.", "نومك الكافي جزء من الدراسة، لا تهمله.", "ثق بنفسك، وصلت لهنا بجهدك.", "العلم نور، والمختبر هو الي يحوله لحقيقة.", "اليوم متعب؟ بعد سنين راح تفتخر إنك كملت.", "راجع باستمرار، مو بس قبل الامتحان.", "ساعد زميلك، واحنا ندعم بعض، النجاح للكل.", "صباحك نشاط وبداية يوم موفق.", "تذكر ليش بديت، ولا توقف قبل ما توصل.", "الحلم يحتاج شغل، والشغل يحتاج صبر.", "كل ملخص تقراه يقربك من الدرجة الي تريدها.", "خل هدفك كدامك، وتجاهل كل مشتت.", "ماكو أحد ينجح بدون تعب، فتعبك مو ضايع.", "انت كدها، وراح تثبت هالشي.", "بلا تسويف: افتح الملخص الحين.", "الله يوفقك ويسهل دربك.", "كل خبير كان يوم مبتدئ.", "درجتك مو قيمتك، بس جهدك يستاهل التقدير.", "نهاية الفصل قريبة، كمّل بنفس الحماس."];
 const TG='https://t.me/x29_m1';
+function allQ(){return QUOTES.concat((state.quotes||[]).map(x=>x.t));}
 function qIndex(){
-  if(ui.q==null){const d=new Date();ui.q=(Math.floor(d.getTime()/86400000)*7+d.getDate())%QUOTES.length;}
+  if(ui.q==null){const d=new Date();ui.q=(Math.floor(d.getTime()/86400000)*7+d.getDate())%allQ().length;}
   return ui.q;
 }
-function nextQuote(){ui.q=(qIndex()+1+Math.floor(Math.random()*(QUOTES.length-1)))%QUOTES.length;render();}
-function quoteAt(k){return QUOTES[(qIndex()+k)%QUOTES.length];}
+function nextQuote(){ui.q=(qIndex()+1+Math.floor(Math.random()*(allQ().length-1)))%allQ().length;render();}
+function quoteAt(k){return allQ()[(qIndex()+k)%allQ().length];}
 function creditNode(){
   return h('a',{class:'credit',href:TG,target:'_blank',rel:'noopener'},
     svgEl(ICON_TG),
@@ -619,9 +696,10 @@ function splash(){
 function viewMotiv(){
   const sec=h('section',{class:'sec'});
   sec.append(h('h2',{class:'subt'},'رسائل تحفيزية'),h('p',{class:'note'},'اقرأ رسالة قبل ما تبدأ مراجعتك.'),quoteCard());
+  if(ui.admin) sec.append(h('div',{class:'row'},h('button',{class:'btn primary',type:'button',onclick:editQuotes},'+ إضافة وإدارة رسائلك')));
   sec.append(h('h2',{class:'lbl'},'كلمات لك'));
   const list=h('div',{class:'qlist'});
-  QUOTES.forEach((t,i)=>{if(i!==qIndex()) list.append(h('div',{class:'qitem'},t));});
+  allQ().forEach((t,i)=>{if(i!==qIndex()) list.append(h('div',{class:'qitem'},t));});
   sec.append(list,creditNode());
   return sec;
 }
@@ -688,7 +766,7 @@ function viewHome(){
       h('div',{class:'hero-text'},h('h2',{class:'greet'},greet),h('p',{class:'hsub'},'خلّينا نكمل رحلتك العلمية بعالم المختبرات')),
       h('div',{class:'hero-art','aria-hidden':'true'},svgEl(MICRO)))));
   sec.append(g?nextCard(g):h('div',{class:'ncard'},h('div',{class:'nt'},'اختر كروبك'),h('p',{class:'hint'},'حتى تطلعلك محاضرتك القادمة ومحاضرات اليوم.'),groupPicker()));
-  { const ic=installCard(); if(ic) sec.append(ic); }
+  { const nc=noticeHome(); if(nc) sec.append(nc); const ic=installCard(); if(ic) sec.append(ic); }
   if(g){
     const tk=todayKey(), list=tk?sessionsFor(tk,g):[];
     const tot=DAYS.reduce((a,d)=>a+sessionsFor(d.k,g).length,0);
@@ -701,7 +779,7 @@ function viewHome(){
   sec.append(h('h2',{class:'lbl'},'انتقل إلى'),h('div',{class:'tiles'},
     tile('الجدول','كل الأسبوع',ICON_CAL,()=>{ui.tab='sched';if(g) ui.day='all';render();window.scrollTo(0,0);}),
     tile('الملخصات',state.files.length+' ملف',ICON_DOC,()=>{ui.tab='files';ui.subj=null;render();window.scrollTo(0,0);}),
-    tile('تحفيز','45 رسالة',ICON_STAR,()=>{ui.tab='motiv';render();window.scrollTo(0,0);})));
+    tile('تحفيز',allQ().length+' رسالة',ICON_STAR,()=>{ui.tab='motiv';render();window.scrollTo(0,0);})));
   sec.append(creditNode(),h('p',{class:'foot'},'جامعة المعارف · كلية التقنيات الصحية والطبية'));
   return sec;
 }
@@ -1069,10 +1147,10 @@ async function loadRemote(){
     if(r.error) throw r.error;
     const d=r.data&&r.data.data;
     if(d&&d.sessions){
-      state.subjects=d.subjects||[];state.sessions=d.sessions;state.files=d.files||[];
+      state.subjects=d.subjects||[];state.sessions=d.sessions;state.files=d.files||[];state.quotes=d.quotes||[];state.notices=d.notices||[];
       initial=JSON.stringify(state);ui.day=defaultDay();
     }
-  }catch(e){toast('تعذر تحميل آخر نسخة من الجدول. المعروض نسخة احتياطية.',5000);}
+  }catch(e){toast('تعذر تحميل آخر نسخة من الجدول (رمز الخطأ: '+((e&&(e.code||e.status||e.message))||'؟')+'). المعروض نسخة احتياطية.',9000);}
 }
 async function refreshAuth(){
   if(!sb) return;
@@ -1133,14 +1211,14 @@ async function publishAll(){
   if(!sb||ui.busy) return;
   ui.busy=true;render();
   try{
-    const payload={subjects:state.subjects,sessions:state.sessions,files:state.files};
+    const payload={subjects:state.subjects,sessions:state.sessions,files:state.files,quotes:state.quotes,notices:state.notices};
     const r=await sb.from('site_state').upsert({id:1,data:payload,updated_at:new Date().toISOString()});
     if(r.error) throw r.error;
     initial=JSON.stringify(state);ui.dirty=false;ui.busy=false;render();
     toast('تم النشر. التعديلات ظهرت عند الطلاب.',4000);
   }catch(e){
     ui.busy=false;render();
-    toast('تعذر النشر. تأكد أنك داخل بحساب المشرف وجرّب مرة ثانية.',5000);
+    toast('تعذر النشر (رمز الخطأ: '+((e&&(e.code||e.status||e.message))||'؟')+'). تأكد أنك داخل بحساب المشرف.',9000);
   }
 }
 
